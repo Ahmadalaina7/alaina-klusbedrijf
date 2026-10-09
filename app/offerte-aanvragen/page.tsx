@@ -1,0 +1,10 @@
+import { Info, ShieldCheck } from 'lucide-react';
+import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/breadcrumbs';
+import { QuoteForm } from '@/components/quote-form';
+import { services } from '@/content/services';
+import { pageMetadata } from '@/lib/metadata';
+
+export const metadata: Metadata = pageMetadata({ path: '/offerte-aanvragen', title: 'Offerte aanvragen voor je klus', description: 'Vraag Alaina Bouw om mee te denken over je klus. Je aanvraag is vrijblijvend en is nog geen prijsafspraak of opdracht.' });
+
+export default async function QuotePage({searchParams}:{searchParams:Promise<{klus?:string}>}){const params=await searchParams;const allowed=services.map((service)=>service.title);const initialJobType=allowed.includes(params.klus??'')?(params.klus??''):'';return <><section className="page-hero"><div className="container"><Breadcrumbs items={[{label:'Offerte aanvragen'}]}/><div className="eyebrow"><span/> BESPREK JE PLANNEN</div><h1>Een goed begin is vertellen.</h1><p>Vertel wat er speelt en wanneer je ongeveer wilt beginnen. De eigenaar bekijkt vervolgens persoonlijk of de klus en locatie passen en stemt eventuele vervolgstappen met je af.</p><div style={{display:'flex',alignItems:'flex-start',gap:9,maxWidth:680,marginTop:19,color:'#706c67',fontSize:'.79rem'}}><ShieldCheck size={18} color="#a90f14" style={{flexShrink:0,marginTop:2}}/><span>Je aanvraag is vrijblijvend. Er ontstaat geen offerte, planning of opdracht voordat deze persoonlijk en vooraf met je zijn afgestemd.</span></div></div></section><section className="page-body"><div className="container"><div className="policy-note" style={{marginTop:0,marginBottom:25}}><Info size={16} style={{verticalAlign:'middle',marginRight:8,color:'#a90f14'}}/><strong>Belangrijk voor lancering:</strong> de contactgegevens en beveiligde leadontvangst moeten nog door de eigenaar worden ingericht. Tot die tijd laat het formulier eerlijk zien dat aanvragen niet bevestigd zijn; ingevulde informatie blijft in je browser tijdens de stappen en wordt niet stilzwijgend als ontvangen getoond.</div><QuoteForm initialJobType={initialJobType}/></div></section></>}
